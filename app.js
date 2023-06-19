@@ -73,6 +73,7 @@ function doOperation(){
       break
     default:
       console.log('Invalid operation symbol.')
+      clearDisplay()
   }
 
   display.innerText = result
