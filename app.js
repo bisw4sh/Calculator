@@ -10,18 +10,25 @@ const dot = document.querySelector('.num-dot')
 // const mul = document.querySelector('.num-mul')
 const eq = document.querySelector('.num-eq')
 
-
-
 let result = 0
-let bufferArr = []
+let bufferStr = ''
+let operand1 = 0
+let operand2 = 0
+let operand = ''
+let displayData = ''
 
 const clearDisplay = () => {
   display.innerText = ''
-  bufferArr = [] 
+  result = 0
+  bufferStr = ''
+  operand1 = 0
+  operand2 = 0
+  operand = ''
+  displayData = ''
 }
 
-const concatDisplay = (newData) => {
-  display.innerText += newData
+const concatDisplay = () => {
+  display.innerText = displayData
 }
 
 clear.addEventListener('click', clearDisplay)
@@ -29,43 +36,52 @@ clear.addEventListener('click', clearDisplay)
 digits.forEach( digit => {
   digit.addEventListener('click', (e) => {
     concatDisplay(e.target.value)
-    result = e.target.value
-    console.log(e.target.value)
-    console.log(bufferArr)
-    bufferArr.push(e.target.value)
+    putIntoBuffer(e.target.value)
+    displayData += e.target.value
+    concatDisplay()
   })  
 })
 
 op.forEach( operator => {
   operator.addEventListener('click', (e) => {
-
-
-      console.log('operation of symbol')
-      bufferArr.push(`${e.target.value}`)
-      console.log(e.target.value)
+    operand = e.target.value
+    if(operand1 === 0)
+      operand1 = Number(bufferStr)
+    bufferStr = ''
+    displayData += e.target.value
+    concatDisplay()
   })
 })
 
 eq.addEventListener('click', doOperation)
 
 function doOperation(){
-  console.log(bufferArr)
-  switch (bufferArr[1]) {
+  operand2 = Number(bufferStr)
+  bufferStr = ''
+  switch (operand) {
     case '+':
-      result = Number(bufferArr[0]) + Number(bufferArr[2]);
-      break;
+      result = Number(operand1) + Number(operand2)
+      break
     case '-':
-      result = Number(bufferArr[0]) - Number(bufferArr[2]);
-      break;
+      result = Number(operand1) - Number(operand2)
+      break
     case '*':
-      result = Number(bufferArr[0]) * Number(bufferArr[2]);
-      break;
+      result = Number(operand1) * Number(operand2)
+      break
     case '/':
-      result = Number(bufferArr[0]) / Number(bufferArr[2]);
-      break;
+      result = Number(operand1) / Number(operand2)
+      break
     default:
-      console.log('Invalid operation symbol.');
+      console.log('Invalid operation symbol.')
   }
-  console.log(result)
-display.innerText = result
+
+  display.innerText = result
+  operand1 = result
+  operand2 = 0
+  result = 0
+}
+
+function putIntoBuffer(param){
+  console.log(param)
+  bufferStr += param
 }
