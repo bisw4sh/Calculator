@@ -14,7 +14,7 @@ let result = 0
 let bufferStr = ''
 let operand1 = 0
 let operand2 = 0
-let operand = ''
+let operator = ''
 let displayData = ''
 
 const clearDisplay = () => {
@@ -23,7 +23,7 @@ const clearDisplay = () => {
   bufferStr = ''
   operand1 = 0
   operand2 = 0
-  operand = ''
+  operator = ''
   displayData = ''
 }
 
@@ -58,7 +58,7 @@ eq.addEventListener('click', doOperation)
 function doOperation(){
   operand2 = Number(bufferStr)
   bufferStr = ''
-  switch (operand) {
+  switch (operator) {
     case '+':
       result = Number(operand1) + Number(operand2)
       break
