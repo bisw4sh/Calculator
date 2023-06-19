@@ -85,3 +85,13 @@ function putIntoBuffer(param){
   console.log(param)
   bufferStr += param
 }
+
+sDelete.addEventListener('click', handlePop)
+
+function handlePop(){
+  bufferStr = bufferStr.slice(0, -1)
+  displayData = displayData.slice(0, -1)
+  concatDisplay()
+  console.log(bufferStr)
+  console.log(displayData)
+}
